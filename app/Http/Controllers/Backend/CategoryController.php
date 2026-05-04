@@ -4,14 +4,21 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StorePostRequest;
-use App\Models\Category;
+use App\Repositories\CategoryRepositoryInterface;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    protected $categoryRepository;
+
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
     public function index()
     {
-        $categories = Category::latest()->paginate(5);
+        $categories = $this->categoryRepository->paginate(5);
         return view('backend.category.index', compact('categories'));
     }
 
@@ -22,26 +29,18 @@ class CategoryController extends Controller
 
     public function store(StorePostRequest $request)
     {
+        $data = $request->validated();
 
+        $this->categoryRepository->create($data);
 
-        $Category = new Category ();
-        $Category->name = $request->name;
-        $Category->order = $request->order;
-        $Category->status = $request->status;
-        if ($Category->save()) {
-            return redirect()->route('category.index')->with('success', 'Category created successfully.');
-        }
-
-        return redirect()->back()->with('error', 'Failed to create category.');
+        return redirect()->route('category.index')->with('success', 'Category created successfully.');
     }
 
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
+        $category = $this->categoryRepository->find($id);
         return view('backend.category.edit', compact('category'));
     }
-
-
 
     public function update(Request $request, $id)
     {
@@ -51,11 +50,60 @@ class CategoryController extends Controller
             'status' => 'required|in:0,1',
         ]);
 
-        $row = Category::find($id);
-        $row->name = $request->name;
-        $row->order = $request->order;
-        $row->status = $request->status;
-        if($row->save()){
+        $data = $request->only(['name', 'order', 'status']);
+
+        $this->categoryRepository->update($id, $data);
+
+        return redirect()->route('category.index')->with('success', 'Category updated successfully.');
+    }
+
+    public function delete($id)
+    {
+        $this->categoryRepository->delete($id);
+
+        return redirect()->route('category.index')->with('success', 'Category deleted successfully.');
+    }
+}
+
+    public function index()
+    {
+        $categories = $this->categoryRepository->paginate(5);
+        return view('backend.category.index', compact('categories'));
+    }
+
+    public function create()
+    {
+        return view('backend.category.create');
+    }
+
+    public function store(StorePostRequest $request)
+    {
+        $data = $request->only(['name', 'order', 'status']);
+        
+        if ($this->categoryRepository->create($data)) {
+            return redirect()->route('category.index')->with('success', 'Category created successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Failed to create category.');
+    }
+
+    public function edit($id)
+    {
+        $category = $this->categoryRepository->find($id);
+        return view('backend.category.edit', compact('category'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'order' => 'nullable|numeric',
+            'status' => 'required|in:0,1',
+        ]);
+
+        $data = $request->only(['name', 'order', 'status']);
+        
+        if($this->categoryRepository->update($id, $data)){
             return redirect()->route('category.index')->with('success', 'Category updated successfully.');
         }
         return redirect()->back()->with('error', 'Category not found.');
@@ -63,13 +111,9 @@ class CategoryController extends Controller
 
     public function delete($id)
     {
-        $category = Category::destroy($id);
-
-     if($category) {
-       return redirect('category/index')->with("success", "Deleted successfully");
-     }
-     return redirect()->back()->with("danger", "Delete unsuccessful");
-
+        if($this->categoryRepository->delete($id)){
+            return redirect()->route('category.index')->with("success", "Deleted successfully");
+        }
+        return redirect()->back()->with("danger", "Delete unsuccessful");
     }
-    }
-
+}

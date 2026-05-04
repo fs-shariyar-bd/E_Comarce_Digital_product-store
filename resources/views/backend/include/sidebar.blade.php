@@ -27,7 +27,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-fw fa-tag"></i>Sub Category Management</a>
+                                <a class="nav-link" href="{{ route('subcategory.index') }}"><i class="fa fa-fw fa-tag"></i>Sub Category Management</a>
                             </li>
 
                             <li class="nav-item">
