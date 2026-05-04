@@ -1,0 +1,23 @@
+.dashboard-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #2b3838, #6580a2);
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.dashboard-link i {
+    font-size: 20px;
+}
+
+.dashboard-link:hover {
+    background: linear-gradient(135deg, #5a6470, #3e4752);
+    transform: translateX(5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
