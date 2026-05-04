@@ -6,6 +6,7 @@ use App\Repositories\CategoryRepository;
 use App\Repositories\CategoryRepositoryInterface;
 use App\Repositories\SubCategoryRepository;
 use App\Repositories\SubCategoryRepositoryInterface;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,15 +19,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(SubCategoryRepositoryInterface::class, SubCategoryRepository::class);
     }
-
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        //
-    }
-}
 
     /**
      * Bootstrap any application services.

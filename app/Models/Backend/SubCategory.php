@@ -18,4 +18,3 @@ class SubCategory extends Model
         return $this->belongsTo(\App\Models\Category::class, 'category_id');
     }
 }
-}

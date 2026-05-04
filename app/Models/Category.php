@@ -18,4 +18,3 @@ class Category extends Model
         return $this->hasMany(\App\Models\Backend\SubCategory::class, 'category_id');
     }
 }
-}
