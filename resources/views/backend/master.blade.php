@@ -5,6 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('backend')}}/assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="{{asset('backend')}}/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -81,6 +82,7 @@
     <script src="{{asset('backend')}}/assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
     <script src="{{asset('backend')}}/assets/vendor/charts/c3charts/C3chartjs.js"></script>
     <script src="{{asset('backend')}}/assets/libs/js/dashboard-ecommerce.js"></script>
+    @stack('body-scripts')
 </body>
 
 </html>

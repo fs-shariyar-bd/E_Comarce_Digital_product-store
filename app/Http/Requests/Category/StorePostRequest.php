@@ -13,33 +13,15 @@ class StorePostRequest extends FormRequest
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
-     *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'order' => 'nullable|numeric',
-            'status' => 'required|in:0,1',
-        ];
-    }
-}
-
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'name' => 'required|unique:catagories|max:255',
-            'order' => 'nullable|numeric',
+            'name' => 'required|string|max:255|unique:categories,name',
+            'order' => 'required|integer|unique:categories,order',
             'status' => 'required|in:0,1',
         ];
     }

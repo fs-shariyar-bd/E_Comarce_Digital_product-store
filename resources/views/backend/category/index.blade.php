@@ -76,10 +76,14 @@
                                                    <td> {{ $row->order }}</td>
                                                    <td><span class="badge badge-{{ $row->status == 1 ? 'Active' : 'Inactive'}} "> {{ $row->status == 1 ? 'Active' : 'Inactive' }}</span></td>
 
-                                                   <td class="action-btns">
-                                                       <a href="{{ route('category.edit', $row->id) }}" class="btn btn-info"> <i class="fas fa-edit" style="margin-right: 8px"></i><span>Edit</span></a>
-                                                       <a href="{{ route('category.delete', $row->id) }}" onclick="return confirm('Are you sure you want to delete this category?')" class="btn btn-warning"><i class="far fa-trash-alt"  style="margin-right: 8px"></i><span>Delete</span></a>
-                                                   </td>
+<td class="action-btns">
+                                                        <a href="{{ route('category.edit', $row->id) }}" class="btn btn-info"> <i class="fas fa-edit" style="margin-right: 8px"></i><span>Edit</span></a>
+                                                        <form action="{{ route('category.delete', $row->id) }}" method="POST" class="d-inline" onclick="return confirm('Are you sure you want to delete this category?')">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-warning"><i class="far fa-trash-alt" style="margin-right: 8px"></i><span>Delete</span></button>
+                                                        </form>
+                                                    </td>
                                                </tr>
                                                 @endforeach
                                            </tbody>

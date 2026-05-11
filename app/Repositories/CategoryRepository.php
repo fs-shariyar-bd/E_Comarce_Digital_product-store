@@ -2,47 +2,27 @@
 
 namespace App\Repositories;
 
-use App\Models\Category;
+use App\Models\Backend\Category;
 
-class CategoryRepository implements CategoryRepositoryInterface
+class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
-    protected $model;
-
-    public function __construct(Category $category)
+    public function __construct(Category $model)
     {
-        $this->model = $category;
+        parent::__construct($model);
     }
 
-    public function all()
+    public function withCategory()
     {
-        return $this->model->all();
+        return $this->model->newQuery();
     }
 
-    public function paginate($perPage = 5)
+    public function getCategoriesWithSubcategories()
     {
-        return $this->model->latest()->paginate($perPage);
+        return $this->model->with('subcategories')->where('status', 1)->get();
     }
 
-    public function find($id)
+    public function getCategoriesForProduct()
     {
-        return $this->model->findOrFail($id);
-    }
-
-    public function create(array $data)
-    {
-        return $this->model->create($data);
-    }
-
-    public function update($id, array $data)
-    {
-        $model = $this->find($id);
-        $model->update($data);
-        return $model;
-    }
-
-    public function delete($id)
-    {
-        return $this->model->destroy($id);
+        return $this->model->with('products')->withCount('subcategories')->where('status', 1)->orderBy('order')->get();
     }
 }
-

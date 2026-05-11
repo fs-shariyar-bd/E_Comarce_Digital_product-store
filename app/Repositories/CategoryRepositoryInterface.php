@@ -2,12 +2,9 @@
 
 namespace App\Repositories;
 
-interface CategoryRepositoryInterface
+interface CategoryRepositoryInterface extends BaseRepositoryInterface
 {
-    public function all();
-    public function paginate($perPage = 5);
-    public function find($id);
-    public function create(array $data);
-    public function update($id, array $data);
-    public function delete($id);
+    public function withCategory();
+    public function getCategoriesWithSubcategories();
+    public function getCategoriesForProduct();
 }

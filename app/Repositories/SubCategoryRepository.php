@@ -4,50 +4,18 @@ namespace App\Repositories;
 
 use App\Models\Backend\SubCategory;
 
-class SubCategoryRepository implements SubCategoryRepositoryInterface
+class SubCategoryRepository extends BaseRepository implements SubCategoryRepositoryInterface
 {
-    protected $model;
-
-    public function __construct(SubCategory $subCategory)
+    public function __construct(SubCategory $model)
     {
-        $this->model = $subCategory;
+        parent::__construct($model);
     }
 
-    public function all()
+    public function getByCategory($categoryId)
     {
-        return $this->model->all();
-    }
-
-    public function paginate($perPage = 5)
-    {
-        return $this->model->with('category')->latest()->paginate($perPage);
-    }
-
-    public function find($id)
-    {
-        return $this->model->findOrFail($id);
-    }
-
-    public function create(array $data)
-    {
-        return $this->model->create($data);
-    }
-
-    public function update($id, array $data)
-    {
-        $model = $this->find($id);
-        $model->update($data);
-        return $model;
-    }
-
-    public function delete($id)
-    {
-        return $this->model->destroy($id);
-    }
-
-    public function withCategory()
-    {
-        return $this->model->with('category');
+        return $this->model->where('category_id', $categoryId)
+            ->where('status', 1)
+            ->orderBy('name')
+            ->get();
     }
 }
-

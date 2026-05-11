@@ -3,11 +3,12 @@
 
 <!-- index28:48-->
 <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>@yield('title')</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+         <meta charset="utf-8">
+         <meta http-equiv="x-ua-compatible" content="ie=edge">
+         <title>@yield('title')</title>
+         <meta name="description" content="">
+         <meta name="viewport" content="width=device-width, initial-scale=1">
+         <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{{asset('frontend')}}/images/favicon.png">
         <!-- Material Design Iconic Font-V2.2.0 -->
@@ -101,9 +102,10 @@
         <script src="{{asset('frontend')}}/js/jquery.nice-select.min.js"></script>
         <!-- ScrollUp js -->
         <script src="{{asset('frontend')}}/js/scrollUp.min.js"></script>
-        <!-- Main/Activator js -->
+<!-- Main/Activator js -->
         <script src="{{asset('frontend')}}/js/main.js"></script>
+        <script src="{{ asset('frontend/js/custom.js') }}"></script>
     </body>
-
-<!-- index30:23-->
+    @section('scripts')
+    @show
 </html>

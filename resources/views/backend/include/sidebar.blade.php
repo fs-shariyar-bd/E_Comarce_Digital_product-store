@@ -15,11 +15,11 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-fw fa-users"></i>Customer Management</a>
+                                <a class="nav-link disabled" href="#"><i class="fa fa-fw fa-users"></i>Customer Management</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-fw fa-shopping-cart"></i>Order Management</a>
+                                <a class="nav-link" href="{{ route('order.index') }}"><i class="fa fa-fw fa-shopping-cart"></i>Order Management</a>
                             </li>
 
                             <li class="nav-item">
@@ -31,7 +31,11 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-fw fa-box-open"></i>Product Management</a>
+                                <a class="nav-link" href="{{ route('product.index') }}"><i class="fa fa-fw fa-cubes"></i>Product Management</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('banner.index') }}"><i class="fa fa-fw fa-images"></i>Banner Management</a>
                             </li>
 
                         </ul>
